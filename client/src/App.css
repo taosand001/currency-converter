@@ -14,7 +14,7 @@ body, #root, html {
   align-items: center;
   background: linear-gradient(90deg, #020024, #58df0d, #00d4ff);
   color: white;
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 
 .main-page h5{
@@ -30,7 +30,6 @@ body, #root, html {
   align-items: center;
   flex-direction: row;
   height: 100%;
-  white-space: nowrap;
 }
 
 .currency-widget .rate-section {
@@ -214,7 +213,13 @@ span.result {
       margin-top: -10px;
       background: linear-gradient(90deg, #020024, #58df0d, #00d4ff);
     }
+    .currency-widget .result-section {
+        height: 20px;
+    }
 
+    .base-currency {
+      margin: 0;
+    }
     
      .currency-rate, .expected-amount {
       padding: 0 10px;

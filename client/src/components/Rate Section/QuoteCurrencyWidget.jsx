@@ -21,7 +21,9 @@ function QuoteCurrencyWidget({
           );
         })}
       </select>
-      {error && <span style={{ color: "black" }}>*{error.quoteCurrency}</span>}
+      {error.quoteCurrency && (
+        <span style={{ color: "black" }}>{`*${error.quoteCurrency}`}</span>
+      )}
     </div>
   );
 }

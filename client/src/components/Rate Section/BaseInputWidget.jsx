@@ -18,9 +18,10 @@ function BaseInputWidget({
         <br />
         {error.baseAmount && (
           <span style={{ color: "black", width: "100px" }}>
-            *{error.baseAmount}
+            {`*${error.baseAmount}`}
           </span>
         )}
+        <br />
 
         <button type="submit">convert</button>
       </form>

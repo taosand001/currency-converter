@@ -21,7 +21,9 @@ function BaseCurrencyWidget({
           );
         })}
       </select>
-      {error && <span style={{ color: "black" }}>*{error.baseCurrency}</span>}
+      {error.baseCurrency && (
+        <span style={{ color: "black" }}>{`*${error.baseCurrency}`}</span>
+      )}
     </div>
   );
 }
