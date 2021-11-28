@@ -1,0 +1,230 @@
+body, #root, html {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.main-page {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(90deg, #020024, #58df0d, #00d4ff);
+  color: white;
+  white-space: nowrap;
+}
+
+.main-page h5{
+    text-transform: uppercase;
+    font-family: Roboto, sans-serif;
+    font-size: 30px;
+    text-align: center;
+}
+
+.currency-widget {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+  white-space: nowrap;
+}
+
+.currency-widget .rate-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  flex-basis: 45%;
+}
+
+.currency-widget .result-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 40%;
+    width: 400px;
+    z-index: 1;
+    background: white;
+    height: 100%;
+    color: black;
+    transition: all .5s linear;
+}
+
+.result-section {
+  animation: show .5s ease-in-out forwards;
+}
+
+
+@keyframes show {
+  from{
+    transform: scale(0);
+  }
+  to{
+    transform: scale(1)
+  }
+}
+
+
+
+.base-currency, .quote-currency {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    position: relative;
+}
+
+
+
+.base-currency select, .quote-currency select {
+    width: 200px;
+    font-size: 20px;
+    font-family: Roboto, sans-serif;
+    padding: 10px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    transition: all .3s linear;
+}
+
+.base-currency::after {
+    content: "\25bc";
+    font-size: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.base-currency {
+  margin-bottom: -40px;
+}
+
+
+
+.base-input {
+  display: flex;
+  align-items:center;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+}
+
+.base-input form {
+    width: 100%;
+    text-align: center;
+}
+
+.base-input input {
+  width: 200px;
+  padding: 8px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+
+.base-input button {
+  width: 220px;
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  background-color: black;
+  margin-top: 15px;
+  border-radius: 6px;
+  color: #ffffff;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: center;
+  transition: all .3s ease-in-out;
+}
+
+.base-input button:hover{
+  opacity: 0.8;
+}
+
+.expected-amount, .currency-rate {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+::placeholder {
+  padding: 5px;
+  font-size: 15px;
+  font-family: Roboto, sans-serif;
+}
+
+.expected-amount h6, .currency-rate h6 {
+    font-size: 18px;
+}
+
+span.result {
+  width: 100%;
+  box-shadow: 1px 1px 3px rgba(0,0, 0, 0.4);
+  padding: 10px;
+  background-color: #020024;
+  color: wheat;
+  font-family: Roboto, sans-serif;
+  font-weight: 800;
+  text-align: center;
+  position: relative;
+  
+}
+
+.loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+}
+
+@media screen and (max-width:768px) {
+    .main-page {
+      width: 100% ;
+      height: 100%;
+      padding: 10px 0px;
+    }
+    .main-page h5 {
+      font-size: 19px;
+      margin: 10px;
+    }
+    .rate-section {
+      margin-top: -20px;
+    }
+    .currency-widget {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      flex-direction: column;
+      margin-top: -10px;
+      background: linear-gradient(90deg, #020024, #58df0d, #00d4ff);
+    }
+
+    
+     .currency-rate, .expected-amount {
+      padding: 0 10px;
+      width: 90%;
+      padding-bottom: 10px;
+    }
+    .currency-rate h6, .expected-amount h6 {
+      margin-bottom: 5px;
+    }
+    span.result {
+      width: 90%;
+    }
+}
