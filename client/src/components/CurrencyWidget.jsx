@@ -108,9 +108,10 @@ function CurrencyWidget(props) {
           handleAmountInput={handleAmountInput}
           baseAmount={baseAmount}
           error={errors}
+          loading={loading}
         />
       </div>
-      {loading && !isResult && <div className="loading">Loading....</div>}
+      {loading && !isResult && <div className="loading"></div>}
       {isResult && (
         <div className="result-section">
           <ConversionRateWidget exchangeRate={conversionRate} />

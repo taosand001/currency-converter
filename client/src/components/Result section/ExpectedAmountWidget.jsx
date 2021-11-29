@@ -5,7 +5,8 @@ function ExpectedAmountWidget({ quoteAmount, quoteCurrency }) {
     <div className="expected-amount">
       <h6>Exchange Amount</h6>
       <span className="result">
-        {quoteCurrency.value} {quoteAmount}
+        {quoteCurrency.value} {quoteAmount}{" "}
+        {quoteCurrency.value === "ILS" ? "COINS" : "CENTS"}
       </span>
     </div>
   );

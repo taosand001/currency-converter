@@ -5,6 +5,7 @@ function BaseInputWidget({
   handleAmountInput,
   handleSubmit,
   error,
+  loading,
 }) {
   return (
     <div className="base-input">
@@ -23,7 +24,9 @@ function BaseInputWidget({
         )}
         <br />
 
-        <button type="submit">convert</button>
+        <button disabled={loading} type="submit">
+          convert
+        </button>
       </form>
     </div>
   );

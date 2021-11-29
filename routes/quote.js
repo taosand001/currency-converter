@@ -30,7 +30,7 @@ async function getExchangeRate(req, res, next) {
     if (myCache.has(BASE_URL)) {
       console.log("getting i");
       data = myCache.get(BASE_URL);
-      const quoteAmount = calculateRate(baseAmount, data, quoteCurrency);
+      const quoteAmount = calculateRate(baseAmount, data);
       return res
         .status(200)
         .json({ exchangeRate: data, quoteAmount: quoteAmount });
@@ -42,10 +42,10 @@ async function getExchangeRate(req, res, next) {
 }
 
 //function to calculate the exchange rate
-function calculateRate(amount, rate, quoteCurrency) {
+function calculateRate(amount, rate) {
   const finalAmount = amount / 100;
   const exchangeRate = Number((finalAmount * rate).toFixed(3));
-  return exchangeRate;
+  return Math.floor(exchangeRate * 100);
 }
 
 // middleware to check incoming request
