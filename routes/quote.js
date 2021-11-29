@@ -22,14 +22,18 @@ var LRU = require("lru-cache"),
 async function getExchangeRate(req, res, next) {
   const URL = process.env.BASE_URI;
   const baseCurrency = req.query.baseCurrency;
+  const baseAmount = req.query.baseAmount;
   const quoteCurrency = req.query.quoteCurrency;
   const BASE_URL = `${URL}/${baseCurrency}/${quoteCurrency}`;
   let data;
   try {
     if (myCache.has(BASE_URL)) {
       console.log("getting i");
-      data = JSON.parse(myCache.get(BASE_URL));
-      return res.status(200).json(data);
+      data = myCache.get(BASE_URL);
+      const quoteAmount = calculateRate(baseAmount, data, quoteCurrency);
+      return res
+        .status(200)
+        .json({ exchangeRate: data, quoteAmount: quoteAmount });
     }
     return next();
   } catch (error) {
@@ -40,16 +44,62 @@ async function getExchangeRate(req, res, next) {
 //function to calculate the exchange rate
 function calculateRate(amount, rate, quoteCurrency) {
   const finalAmount = amount / 100;
-  const fixedRate = finalAmount.toLocaleString("en-US", {
-    currency: quoteCurrency,
-  });
-  const exchangeRate = Number((fixedRate * rate).toFixed(3));
+  const exchangeRate = Number((finalAmount * rate).toFixed(3));
   return exchangeRate;
 }
 
-// quote route
+// middleware to check incoming request
+const checkRequest = (req, res, next) => {
+  let baseCurrency = req.query.baseCurrency;
+  let quoteCurrency = req.query.quoteCurrency;
+  let baseAmount = req.query.baseAmount;
+  try {
+    if (!baseCurrency) {
+      return res
+        .status(400)
+        .json({ message: "baseCurrency is required", code: 400 });
+    } else if (!quoteCurrency) {
+      return res
+        .status(400)
+        .json({ message: "quoteCurrency is required", code: 400 });
+    } else if (!baseAmount) {
+      return res
+        .status(400)
+        .json({ message: "baseAmount is required", code: 400 });
+    }
+    next();
+  } catch (error) {
+    return res.status(400).json(error.message);
+  }
+};
 
-route.get("/quote", getExchangeRate, async (req, res) => {
+//middleware for checking incoming currency request
+
+const checkCurrency = (req, res, next) => {
+  const currencies = ["EUR", "USD", "GBP", "ILS"];
+  let baseCurrency = req.query.baseCurrency;
+  let quoteCurrency = req.query.quoteCurrency;
+  try {
+    if (currencies.indexOf(baseCurrency) === -1) {
+      return res
+        .status(400)
+        .json({ code: "400", message: "baseCurrency cannot be found!!!" });
+    } else if (currencies.indexOf(quoteCurrency) === -1) {
+      return res
+        .status(400)
+        .json({ code: "400", message: "quoteCurrency cannot be found!!!" });
+    } else {
+      next();
+    }
+  } catch (error) {
+    return res.status(500).json("internal server error");
+  }
+};
+//array for incoming request
+const middlewareRequest = [checkCurrency, checkRequest, getExchangeRate];
+
+// quote route
+route.get("/quote", middlewareRequest, async (req, res) => {
   const URL = process.env.BASE_URI;
   let baseCurrency = req.query.baseCurrency;
   let quoteCurrency = req.query.quoteCurrency;
@@ -73,11 +123,8 @@ route.get("/quote", getExchangeRate, async (req, res) => {
     console.log("getting server");
     const { conversion_rate } = response.body;
     data = Number(conversion_rate.toFixed(3));
-    const expectedAmount = calculateRate(baseAmount, data);
-    myCache.set(
-      BASE_URL,
-      JSON.stringify({ exchangeRate: data, quoteAmount: expectedAmount })
-    );
+    const expectedAmount = calculateRate(baseAmount, data, quoteCurrency);
+    myCache.set(BASE_URL, data);
     return res
       .status(200)
       .json({ exchangeRate: data, quoteAmount: expectedAmount });
