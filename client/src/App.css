@@ -15,7 +15,6 @@ body, #root, html {
   align-items: center;
   background: linear-gradient(90deg, #020024, #58df0d, #00d4ff);
   color: white;
-  /* white-space: nowrap; */
 }
 
 .main-page h5{
@@ -26,7 +25,7 @@ body, #root, html {
 }
 
 .currency-widget {
-  display: flex !important;
+  display: flex ;
   justify-content: center;
   align-items: center;
   flex-direction: row;
@@ -47,18 +46,17 @@ body, #root, html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-basis: 40%;
+    flex-basis: 50%;
     width: 400px;
-    z-index: 1;
     background: white;
-    height: 100%;
+    animation: show .5s ease-in-out forwards;
+    height: 80%;
     color: black;
+    overflow: hidden;
     transition: all .5s linear;
 }
 
-.result-section {
-  animation: show .5s ease-in-out forwards;
-}
+
 
 
 @keyframes show {
@@ -158,7 +156,7 @@ body, #root, html {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    position: relative;
+    /* position: relative; */
 }
 
 ::placeholder {
@@ -171,6 +169,8 @@ body, #root, html {
     font-size: 18px;
 }
 
+
+
 span.result {
   width: 100%;
   box-shadow: 1px 1px 3px rgba(0,0, 0, 0.4);
@@ -179,9 +179,34 @@ span.result {
   color: wheat;
   font-family: Roboto, sans-serif;
   font-weight: 800;
+  z-index: -9999;
   text-align: center;
-  position: relative;
+  position: relative ;
   
+}
+
+span.result::before {
+  content: '';
+  position: absolute ;
+  top:50%;
+  right:0;
+  z-index: 0;
+  border-right: 20px solid transparent;
+  border-left: 20px solid transparent;
+  border-bottom: 60px solid #020024;
+  transform: rotate(-45deg) translateX(15px) ;
+}
+.result::after  {
+  content: '';
+  position: absolute ;
+  top:50%;
+  left:0;
+  z-index: -999;
+  
+  border-right: 20px solid transparent;
+  border-left: 20px solid transparent;
+  border-bottom: 60px solid #020024;
+  transform: rotate(45deg) translateX(-15px);
 }
 
 .loading {
@@ -232,5 +257,8 @@ span.result {
     }
     span.result {
       width: 90%;
+    }
+    span.result::after, span.result::before {
+        display: none;
     }
 }
