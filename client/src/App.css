@@ -292,4 +292,28 @@ span.result::before {
     span.result::after, span.result::before {
         display: none;
     }
+    .loading::before {
+      content: '';
+      top: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      animation: rotate 2s ease-in-out infinite;
+      background: linear-gradient(#833ab4, #fd1d1d, #fcb045)
+    }
+      @keyframes rotate {
+          0%{
+            transform: translateX(-150px);
+          }
+          50%{
+            transform: translateX(150px)
+          }
+          100%{
+            transform: translateX(-150px)
+          }
+      }
+    
+    .loading {
+      background: transparent;
+    }
 }
