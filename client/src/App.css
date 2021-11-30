@@ -249,15 +249,23 @@ span.result::before {
   font-weight: 800;
 }
 
+@media screen and (max-width:1024px) {
+  .currency-widget .result-section {
+    height: 50%;
+  }
+}
+
+
+
 @media screen and (max-width:768px) {
     .main-page {
       width: 100% ;
       height: 100%;
-      padding: 10px 0px;
+      padding: 10px 0;
     }
     .main-page h5 {
       font-size: 19px;
-      margin: 10px;
+      margin-top:60px;
     }
     .rate-section {
       margin-top: -20px;
@@ -271,7 +279,12 @@ span.result::before {
       background: linear-gradient(90deg, #020024, #58df0d, #00d4ff);
     }
     .currency-widget .result-section {
-        height: 20px;
+        height: 100%;
+        width: 100%;
+        flex-basis: 100%;
+        overflow: auto;
+        padding-bottom: 20px;
+        justify-content: flex-start;
     }
 
     .base-currency {
@@ -279,9 +292,8 @@ span.result::before {
     }
     
      .currency-rate, .expected-amount {
-      padding: 0 10px;
       width: 90%;
-      padding-bottom: 10px;
+      height: 100%;
     }
     .currency-rate h6, .expected-amount h6 {
       margin-bottom: 5px;
@@ -317,3 +329,4 @@ span.result::before {
       background: transparent;
     }
 }
+
